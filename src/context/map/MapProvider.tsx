@@ -20,12 +20,16 @@ interface Props {
 export const MapProvider = ({ children } : Props) => {
     const [state, dispatch] = useReducer(mapReducer, INITIAL_STATE);
 
+    const setMap = ( map : Map ) =>{
+        dispatch({ type : 'setMap' , payload : map })
+    }
 
-  return (
-    <MapContext.Provider value = {{
-        ...state
-    }}>
-        {children}
-    </MapContext.Provider>
-  )
+    return (
+        <MapContext.Provider value = {{
+            ...state ,
+            setMap,
+        }}>
+            {children}
+        </MapContext.Provider>
+    )
 }

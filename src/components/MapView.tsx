@@ -5,11 +5,11 @@ import { Loading } from "./Loading"
 
 export const MapView = () => {
 
-    const {isLoading, userLocation} = useContext(PlacesContext)
-    const mapDiv = useRef<HTMLDivElement>( null );
+    const {isLoading, userLocation} = useContext(PlacesContext) //* sacamos del contexto isLoading y la ubicacion
+    const mapDiv = useRef<HTMLDivElement>( null ); //* se va a usar este div como contenedor del mapa
 
-    useLayoutEffect(() => {
-      if (!isLoading){
+    useLayoutEffect(() => { //* una vez que se haya renderizado el componente
+      if (!isLoading){ //* si termino de cargar
         const map = new mapboxgl.Map({
             container: mapDiv.current!, // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
@@ -17,11 +17,11 @@ export const MapView = () => {
             zoom: 14, // starting zoom
             });
       }
-    }, [isLoading])
+    }, [isLoading]) //* solo se ejecuta si isLoading cambia
 
 
-    if (isLoading){
-        return(<Loading/>)
+    if (isLoading){ //* si se esta obteniendo la ubicacion
+        return(<Loading/>) //*  mostramos el componente de carga
     }
     return (
         <div ref={mapDiv} style={{
@@ -30,7 +30,7 @@ export const MapView = () => {
             position : 'fixed',
             top : 0,
             width : '100vw' 
-        }}>
+        }}> {/* mostramos el mapa en toda la pantalla */}
             {userLocation?.join(',')}
         </div>
     )

@@ -1,8 +1,10 @@
-import { ChangeEvent, useRef } from "react"
+import { ChangeEvent, useContext, useRef } from "react"
+import { PlacesContext } from "../context"
 
 export const SearchBar = () => {
 
     const debounceRef = useRef <NodeJS.Timeout>()
+    const {searchPlacesByTerm} = useContext(PlacesContext)
 
     const onQueryChanged = (event: ChangeEvent<HTMLInputElement>) =>{
         if(debounceRef.current){ //* si el temporizador esta funcionando
@@ -11,6 +13,8 @@ export const SearchBar = () => {
 
         debounceRef.current = setTimeout(() => {
             console.log("debounced value :" , event.target.value)
+            searchPlacesByTerm(event.target.value)
+            
         }, 400);
         
     }

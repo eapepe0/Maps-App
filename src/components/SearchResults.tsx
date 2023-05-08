@@ -21,7 +21,7 @@ export const SearchResults = () => {
 
     
     return (
-    <ul className={`list-group ${places.length ===0  ?  ""  :  'mt-3' }`}>
+    <ul className={`list-group ${places.length === 0  ?  ""  :  'mt-3' }`}>
         {
             places.map(place => (
         <li className="list-group-item list-group-item-action" key={place.id}>

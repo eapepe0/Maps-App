@@ -17,13 +17,13 @@ export const MapView = () => {
       if (!isLoading){ //* si termino de cargar
         const map = new mapboxgl.Map({
             container: mapDiv.current!, // container ID
-            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            style: 'mapbox://styles/mapbox/light-v10', // style URL
             center: userLocation, // starting position [lng, lat]
             zoom: 14, // starting zoom
             });
             setMap ( map );
       }
-    }, [isLoading]) //* solo se ejecuta si isLoading cambia
+    }, [ isLoading ]) //* solo se ejecuta si isLoading cambia
 
 
     if (isLoading){ //* si se esta obteniendo la ubicacion

@@ -1,5 +1,7 @@
 import { Map, Marker, Popup } from 'mapbox-gl'
 import { useContext, useEffect, useReducer } from 'react'
+import { directionsApi } from '../../apis';
+import { DirectionsResponse } from '../../interfaces/directions';
 import { PlacesContext } from '../places/PlacesContext';
 import { MapContext } from './MapContext'
 import { mapReducer } from './mapReducer'
@@ -68,12 +70,24 @@ export const MapProvider = ({ children } : Props) => {
     }
 
     const getRouteBetweenPoints = async (start : [number , number] , end : [number , number] ) =>{
+        const resp = await directionsApi.get<DirectionsResponse>(`/${start.join(',')};${end.join(',')}`)
+        console.log(resp)
+
+        const { distance , duration , geometry } = resp.data.routes[0];
+
+        let kms = distance / 1000;
+            kms = Math.round( kms * 100 )
+            kms /= 100;
+        
+        const minutes = Math.floor( duration / 60 );
+        console.log({ kms , minutes })
 
     }
     return (
         <MapContext.Provider value = {{
             ...state ,
             setMap,
+            getRouteBetweenPoints,
         }}>
             {children}
         </MapContext.Provider>

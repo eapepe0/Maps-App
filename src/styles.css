@@ -19,3 +19,12 @@
     width: 250px;
     z-index: 999;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.text-selected {
+    color: #fff;
+    font-size: 0.8rem;
+}

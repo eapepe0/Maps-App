@@ -1,11 +1,13 @@
+/* eslint import/no-webpack-loader-syntax : off */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
 import { MapsApp } from './MapsApp';
-
-import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+//@ts-ignore
+import mapboxgl from '!mapbox-gl'; 
  
-mapboxgl.accessToken = 'pk.eyJ1IjoiY29sb3NpbiIsImEiOiJjbGhlZ2IxcDcwbnB5M2VyNDM5Mm9sNnd3In0.gyXmaoiedRrHeG88ReH3Xg';
+const mapboxAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+(mapboxgl as any).accessToken = mapboxAccessToken;
+
 
 if (!navigator.geolocation) {
   alert('Tu navegador no soporta la opcion de Geolocacion');

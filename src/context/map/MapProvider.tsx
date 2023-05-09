@@ -1,4 +1,6 @@
-import { AnySourceData, LngLatBounds, Map, Marker, Popup } from 'mapbox-gl'
+/* eslint import/no-webpack-loader-syntax : off */
+//@ts-ignore
+import { AnySourceData, LngLatBounds, Map, Marker, Popup } from '!mapbox-gl'
 import { useContext, useEffect, useReducer } from 'react'
 import { directionsApi } from '../../apis';
 import { DirectionsResponse } from '../../interfaces/directions';
@@ -50,6 +52,14 @@ export const MapProvider = ({ children } : Props) => {
       dispatch({type : 'setMarkers', payload :newMarkers})
 
     }, [ places ])
+
+    useEffect(() => {
+        if (state.map?.getLayer("RouteString") && !places.length) {
+          state.map.removeLayer("RouteString");
+          state.map.removeSource("RouteString");
+        }
+      }, [places]);
+
     
 
     const setMap = ( map : Map ) =>{
@@ -114,7 +124,7 @@ export const MapProvider = ({ children } : Props) => {
             }
         }
 
-        //TODO remover polyline
+ 
         if(state.map?.getLayer('RouteString')){
             state.map.removeLayer('RouteString')
             state.map.removeSource('RouteString')
@@ -135,6 +145,7 @@ export const MapProvider = ({ children } : Props) => {
                 'line-width' : 3
             }
         })
+
 
     }
     return (
